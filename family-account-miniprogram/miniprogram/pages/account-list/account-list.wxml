@@ -1,0 +1,40 @@
+<view class="page">
+  <view class="header">
+    <view class="total-label">账户总余额</view>
+    <view class="total-amount">¥{{totalBalance / 100}}</view>
+    <view class="account-count">共 {{accounts.length}} 个账户</view>
+  </view>
+
+  <view class="container">
+    <view class="account-list">
+      <view 
+        class="account-item card-sm" 
+        wx:for="{{accounts}}" 
+        wx:key="_id"
+        data-id="{{item._id}}"
+        bindtap="goToEdit"
+        style="border-left: 8rpx solid {{item.color}};"
+      >
+        <view class="acc-left">
+          <view class="acc-icon">{{item.icon}}</view>
+          <view class="acc-info">
+            <view class="acc-name">{{item.name}}</view>
+            <view class="acc-type-text">
+              {{item.type === 'cash' ? '现金' : (item.type === 'debit' ? '储蓄卡' : (item.type === 'credit' ? '信用卡' : (item.type === 'alipay' ? '支付宝' : (item.type === 'wechat' ? '微信钱包' : '其他'))))}}
+            </view>
+          </view>
+        </view>
+        <view class="acc-right">
+          <text class="acc-balance {{item.balance < 0 ? 'negative' : ''}}">
+            ¥{{item.balance / 100}}
+          </text>
+          <text class="arrow">›</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="fab-btn" bindtap="goToAdd">
+    <text class="fab-icon">+</text>
+  </view>
+</view>

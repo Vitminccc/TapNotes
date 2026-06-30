@@ -1,0 +1,57 @@
+.tx-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #F0F0F0;
+}
+
+.tx-item:last-child {
+  border-bottom: none;
+}
+
+.tx-icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.tx-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.tx-name {
+  font-size: 30rpx;
+  color: #1A1A1A;
+  font-weight: 500;
+  margin-bottom: 6rpx;
+}
+
+.tx-desc {
+  font-size: 24rpx;
+  color: #999;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tx-amount {
+  font-size: 32rpx;
+  font-weight: 600;
+  flex-shrink: 0;
+  margin-left: 16rpx;
+}
+
+.tx-amount.expense {
+  color: #1A1A1A;
+}
+
+.tx-amount.income {
+  color: #27AE60;
+}

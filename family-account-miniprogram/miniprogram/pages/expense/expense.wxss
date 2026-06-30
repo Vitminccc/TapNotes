@@ -1,0 +1,231 @@
+.page {
+  min-height: 100vh;
+  background: #F8F4EE;
+  padding-bottom: 120rpx;
+}
+
+.header {
+  background: linear-gradient(180deg, #0F3460 0%, #1A4D8F 100%);
+  padding: 32rpx 32rpx 60rpx;
+  color: #fff;
+}
+
+.period-tabs {
+  display: flex;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12rpx;
+  padding: 6rpx;
+  margin-bottom: 32rpx;
+}
+
+.period-tab {
+  flex: 1;
+  text-align: center;
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 16rpx 0;
+  border-radius: 8rpx;
+  transition: all 0.2s;
+}
+
+.period-tab.active {
+  background: #fff;
+  color: #0F3460;
+  font-weight: 600;
+}
+
+.total-section {
+  text-align: center;
+}
+
+.total-label {
+  display: block;
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 12rpx;
+}
+
+.total-amount {
+  font-size: 64rpx;
+  font-weight: bold;
+  letter-spacing: 2rpx;
+}
+
+.container {
+  margin-top: -28rpx;
+  padding: 0 32rpx 32rpx;
+}
+
+.card {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 28rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.card-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1A1A1A;
+}
+
+.card-arrow {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.chart-section {
+  display: flex;
+  justify-content: center;
+  padding: 24rpx 0;
+}
+
+.pie-chart {
+  position: relative;
+  width: 300rpx;
+  height: 300rpx;
+}
+
+.pie-circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #F0F0F0;
+  overflow: hidden;
+  position: relative;
+}
+
+.pie-slice {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 50%;
+  top: 0;
+  transform-origin: 0 150rpx;
+  background: var(--color);
+  transform: rotate(var(--rot)) skewY(calc(90deg - var(--percent) * 3.6deg));
+}
+
+.pie-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180rpx;
+  height: 180rpx;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pie-label {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.category-list {
+  margin-top: 16rpx;
+}
+
+.category-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #F5F5F5;
+}
+
+.category-item:last-child {
+  border-bottom: none;
+}
+
+.cat-left {
+  display: flex;
+  align-items: center;
+}
+
+.cat-dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  margin-right: 16rpx;
+}
+
+.cat-name {
+  font-size: 28rpx;
+  color: #1A1A1A;
+}
+
+.cat-right {
+  display: flex;
+  align-items: center;
+}
+
+.cat-amount {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #1A1A1A;
+  margin-right: 16rpx;
+}
+
+.cat-percent {
+  font-size: 24rpx;
+  color: #999;
+  width: 80rpx;
+  text-align: right;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 32rpx 8rpx 20rpx;
+}
+
+.section-title text:first-child {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1A1A1A;
+}
+
+.section-title .more {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.date-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16rpx 0 12rpx;
+  border-bottom: 1rpx solid #F0F0F0;
+  margin-bottom: 8rpx;
+}
+
+.date-text {
+  font-size: 26rpx;
+  color: #666;
+  font-weight: 500;
+}
+
+.date-total {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.empty {
+  text-align: center;
+  padding: 60rpx 0;
+  color: #999;
+  font-size: 28rpx;
+}

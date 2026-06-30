@@ -1,0 +1,54 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/expense/expense",
+    "pages/budget/budget",
+    "pages/schedule/schedule",
+    "pages/finance/finance",
+    "pages/transaction-edit/transaction-edit",
+    "pages/budget-setting/budget-setting",
+    "pages/account-list/account-list",
+    "pages/account-edit/account-edit",
+    "pages/schedule-edit/schedule-edit",
+    "pages/family/family",
+    "pages/profile/profile"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#0F3460",
+    "navigationBarTitleText": "家庭记账",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F8F4EE"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#0F3460",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "记账"
+      },
+      {
+        "pagePath": "pages/expense/expense",
+        "text": "支出"
+      },
+      {
+        "pagePath": "pages/budget/budget",
+        "text": "预算"
+      },
+      {
+        "pagePath": "pages/schedule/schedule",
+        "text": "日程"
+      },
+      {
+        "pagePath": "pages/finance/finance",
+        "text": "理财"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

@@ -1,0 +1,117 @@
+.page {
+  min-height: 100vh;
+  background: #F8F4EE;
+}
+
+.container {
+  padding: 32rpx;
+}
+
+.card {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 0 32rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.form-item {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 0;
+  border-bottom: 1rpx solid #F5F5F5;
+  position: relative;
+}
+
+.form-item:last-child {
+  border-bottom: none;
+}
+
+.form-label {
+  width: 140rpx;
+  font-size: 28rpx;
+  color: #666;
+  flex-shrink: 0;
+}
+
+.form-input {
+  flex: 1;
+  font-size: 28rpx;
+  color: #1A1A1A;
+  text-align: right;
+}
+
+.form-input.amount {
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.form-picker {
+  flex: 1;
+  font-size: 28rpx;
+  color: #1A1A1A;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.form-picker .arrow {
+  color: #ccc;
+  margin-left: 8rpx;
+}
+
+.unit {
+  font-size: 26rpx;
+  color: #999;
+  margin-left: 8rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  color: #666;
+  margin: 32rpx 8rpx 16rpx;
+}
+
+.remark-card {
+  padding: 24rpx;
+}
+
+.remark-input {
+  width: 100%;
+  min-height: 200rpx;
+  font-size: 28rpx;
+  color: #1A1A1A;
+  line-height: 1.6;
+}
+
+.btn-group {
+  margin-top: 48rpx;
+  padding: 0 8rpx;
+}
+
+.btn {
+  border-radius: 48rpx;
+  height: 96rpx;
+  line-height: 96rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  border: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #0F3460 0%, #1A4D8F 100%);
+  color: #fff;
+}
+
+.btn-danger {
+  background: #FDECEA;
+  color: #E74C3C;
+}
+
+.btn::after {
+  border: none;
+}
+
+.btn-block {
+  width: 100%;
+}

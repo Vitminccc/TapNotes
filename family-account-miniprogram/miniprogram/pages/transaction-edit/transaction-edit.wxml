@@ -1,0 +1,80 @@
+<view class="page">
+  <view class="type-tabs">
+    <view 
+      class="type-tab {{type === 'expense' ? 'active' : ''}}" data-type="expense" bindtap="switchType">支出</view>
+    <view 
+      class="type-tab {{type === 'income' ? 'active' : ''}}" data-type="income" bindtap="switchType">收入</view>
+    <view 
+      class="type-tab {{type === 'transfer' ? 'active' : ''}}" data-type="transfer" bindtap="switchType">转账</view>
+  </view>
+
+  <view class="amount-section">
+    <view class="amount-display">
+      <text class="currency">¥</text>
+      <text class="amount">{{amount}}</text>
+    </view>
+  </view>
+
+  <view class="category-section">
+    <scroll-view scroll-x class="category-scroll">
+      <view class="category-row">
+        <view 
+          class="cat-item {{selectedCategory._id === item._id ? 'active' : ''}}"
+          wx:for="{{categories}}"
+          wx:key="_id"
+          data-cat="{{item}}"
+          bindtap="selectCategory"
+        >
+          <view class="cat-icon" style="background: {{item.bgColor || item.color + '20'}}; color: {{item.color}};">
+            {{item.icon}}
+          </view>
+          <text class="cat-name">{{item.name}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="form-section">
+    <view class="form-row">
+      <text class="form-label">日期</text>
+      <picker mode="date" value="{{date}}" bindchange="onDateChange">
+        <view class="form-value">{{date}} ›</view>
+      </picker>
+    </view>
+    <view class="form-row">
+      <text class="form-label">账户</text>
+      <view class="form-value" bindtap="">
+        <text wx:if="{{selectedAccount}}">{{selectedAccount.name}}</text>
+        <text wx:else style="color:#999;">请选择</text>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+    <view class="form-row">
+      <text class="form-label">备注</text>
+      <input 
+        class="form-input" 
+        placeholder="添加备注..." 
+        value="{{remark}}"
+        bindinput="onRemarkInput"
+      />
+    </view>
+  </view>
+
+  <view class="keypad-section safe-bottom">
+    <view class="keypad-grid">
+      <view 
+        class="key" 
+        wx:for="{{numKeys}}" 
+        wx:key="*this"
+        data-key="{{item}}"
+        bindtap="tapNum"
+      >
+        <text wx:if="{{item === 'del'}}" class="del-icon">⌫</text>
+        <text wx:else>{{item}}</text>
+      </view>
+    </view>
+    <view class="save-btn" bindtap="save">
+      <text>完成</text>
+    </view>
+  </view>
+</view>

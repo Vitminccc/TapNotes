@@ -1,0 +1,63 @@
+<view class="page">
+  <view class="container">
+    <calendar
+      year="{{year}}"
+      month="{{month}}"
+      selected-date="{{selectedDate}}"
+      mark-dates="{{markDates}}"
+      bind:select="onSelectDate"
+      bind:monthchange="onMonthChange"
+    />
+
+    <view class="schedule-header mt-24">
+      <view class="date-display">
+        <text class="date-title">{{selectedDate}}</text>
+        <text class="schedule-count">{{todaySchedules.length}} 项</text>
+      </view>
+    </view>
+
+    <view class="schedule-list">
+      <block wx:if="{{todaySchedules.length > 0}}">
+        <view 
+          class="schedule-item card-sm {{item.isCompleted ? 'completed' : ''}}"
+          wx:for="{{todaySchedules}}" 
+          wx:key="_id"
+          data-item="{{item}}"
+          bindtap="onScheduleTap"
+        >
+          <view class="item-left">
+            <view class="type-tag" style="background: {{typeMap[item.type].color}}20; color: {{typeMap[item.type].color}};">
+              {{typeMap[item.type].label}}
+            </view>
+            <view class="item-info">
+              <view class="item-title">{{item.title}}</view>
+              <view class="item-meta">
+                <text wx:if="{{item.time}}" class="item-time">{{item.time}}</text>
+                <text wx:if="{{item.amount}}" class="item-amount">¥{{item.amount / 100}}</text>
+              </view>
+            </view>
+          </view>
+          <view class="item-right">
+            <view 
+              class="check-box {{item.isCompleted ? 'checked' : ''}}"
+              catchtap="toggleComplete"
+              data-item="{{item}}"
+            >
+              <text wx:if="{{item.isCompleted}}">✓</text>
+            </view>
+          </view>
+        </view>
+      </block>
+      <view wx:else class="empty-card">
+        <text class="empty-icon">📅</text>
+        <text class="empty-text">今日暂无日程</text>
+        <text class="empty-tip">点击右下角按钮添加</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="fab-btn" bindtap="goToAdd">
+    <text class="fab-icon">+</text>
+  </view>
+
+</view>

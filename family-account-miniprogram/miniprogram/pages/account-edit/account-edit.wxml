@@ -1,0 +1,75 @@
+<view class="page">
+  <view class="container">
+    <view class="card">
+      <view class="form-item">
+        <text class="form-label">账户名称</text>
+        <input 
+          class="form-input" 
+          placeholder="请输入账户名称" 
+          value="{{name}}"
+          bindinput="onNameInput"
+        />
+      </view>
+      <view class="form-item">
+        <text class="form-label">账户类型</text>
+        <picker 
+          mode="selector" 
+          range="{{typeList}}" 
+          value="{{typeIndex}}" 
+          bindchange="onTypeChange"
+        >
+          <view class="form-picker">
+            {{typeList[typeIndex]}}
+            <text class="arrow">›</text>
+          </view>
+        </picker>
+      </view>
+      <view class="form-item">
+        <text class="form-label">余额</text>
+        <input 
+          class="form-input amount" 
+          type="digit"
+          placeholder="0.00" 
+          value="{{balance}}"
+          bindinput="onBalanceInput"
+        />
+        <text class="unit">元</text>
+      </view>
+    </view>
+
+    <view class="section-title">图标</view>
+    <view class="card">
+      <view class="icon-grid">
+        <view 
+          class="icon-item {{icon === item ? 'active' : ''}}"
+          wx:for="{{iconList}}" 
+          wx:key="*this"
+          data-icon="{{item}}"
+          bindtap="selectIcon"
+          style="border-color: {{icon === item ? color : '#eee'}};"
+        >{{item}}</view>
+      </view>
+    </view>
+
+    <view class="section-title">颜色</view>
+    <view class="card">
+      <view class="color-grid">
+        <view 
+          class="color-item {{color === item ? 'active' : ''}}"
+          wx:for="{{colorList}}" 
+          wx:key="*this"
+          data-color="{{item}}"
+          bindtap="selectColor"
+          style="background: {{item}};"
+        >
+          <text wx:if="{{color === item}}">✓</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="btn-group">
+      <button class="btn btn-primary btn-block" bindtap="save">保存</button>
+      <button wx:if="{{isEdit}}" class="btn btn-danger btn-block mt-16" bindtap="deleteAccount">删除账户</button>
+    </view>
+  </view>
+</view>

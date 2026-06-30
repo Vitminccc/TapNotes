@@ -1,0 +1,50 @@
+.page {
+  min-height: 100vh;
+  background: #F8F4EE;
+  padding-bottom: 120rpx;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+  padding: 0 8rpx;
+}
+
+.section-title text:first-child {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1A1A1A;
+}
+
+.section-title .more {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.budget-items {
+  padding: 0 8rpx;
+}
+
+.fab-btn {
+  position: fixed;
+  right: 40rpx;
+  bottom: 160rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background: linear-gradient(135deg, #0F3460 0%, #1A4D8F 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(15, 52, 96, 0.4);
+  z-index: 100;
+}
+
+.fab-icon {
+  color: #fff;
+  font-size: 48rpx;
+  font-weight: 300;
+  line-height: 1;
+}

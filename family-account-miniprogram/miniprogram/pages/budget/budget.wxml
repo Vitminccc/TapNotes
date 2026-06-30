@@ -1,0 +1,42 @@
+<view class="page">
+  <view class="container">
+    <budget-card wx:if="{{budget}}" budget="{{budget}}" bind:tap="onBudgetTap" />
+
+    <view class="section-title mt-24">
+      <text>分类预算</text>
+      <text class="more" bindtap="goToSetting">设置 ›</text>
+    </view>
+
+    <view class="budget-items">
+      <budget-item 
+        wx:for="{{items}}" 
+        wx:key="_id" 
+        item="{{item}}"
+        bind:tap="onItemTap"
+      />
+    </view>
+
+    <view class="section-title mt-24">
+      <text>最近支出</text>
+      <text class="more">按时间排序</text>
+    </view>
+
+    <view class="card">
+      <block wx:if="{{recentTransactions.length > 0}}">
+        <transaction-item
+          wx:for="{{recentTransactions}}"
+          wx:key="_id"
+          transaction="{{item}}"
+          showDate="{{true}}"
+          bind:tap="onTxTap"
+        />
+      </block>
+      <view wx:else class="empty">暂无支出记录</view>
+    </view>
+  </view>
+
+  <view class="fab-btn" bindtap="goToAdd">
+    <text class="fab-icon">+</text>
+  </view>
+
+</view>

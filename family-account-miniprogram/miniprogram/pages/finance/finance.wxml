@@ -1,0 +1,139 @@
+<view class="page">
+  <view class="header">
+    <view class="user-row" bindtap="goToProfile">
+      <view class="avatar">
+        <text>{{userInfo.nickname ? userInfo.nickname[0] : '用'}}</text>
+      </view>
+      <view class="user-info">
+        <view class="nickname">{{userInfo.nickname || '用户'}}</view>
+        <view class="user-desc">点击查看个人设置</view>
+      </view>
+      <text class="arrow">›</text>
+    </view>
+
+    <view class="asset-card" bindtap="toggleAssetDetail">
+      <view class="asset-label">
+        <text>净资产（元）</text>
+        <text class="eye-icon">{{showAssetDetail ? '🙈' : '👁'}}</text>
+      </view>
+      <view class="asset-total">
+        {{showAssetDetail ? '****' : '¥' + (totalAssets / 100).toFixed(2)}}
+      </view>
+      <view class="asset-detail-row">
+        <view class="asset-item">
+          <text class="asset-item-label">账户余额</text>
+          <text class="asset-item-value">¥{{totalBalance / 100}}</text>
+        </view>
+        <view class="asset-item">
+          <text class="asset-item-label">理财市值</text>
+          <text class="asset-item-value">¥{{totalInvestValue / 100}}</text>
+        </view>
+        <view class="asset-item">
+          <text class="asset-item-label">累计收益</text>
+          <text class="asset-item-value profit {{totalProfit >= 0 ? 'positive' : 'negative'}}">
+            {{totalProfit >= 0 ? '+' : ''}}¥{{totalProfit / 100}}
+          </text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="container">
+    <view class="section-header">
+      <text class="section-title">账户</text>
+      <text class="section-more" bindtap="goToAccountList">管理 ›</text>
+    </view>
+
+    <view class="account-list">
+      <view 
+        class="account-item card-sm" 
+        wx:for="{{accounts}}" 
+        wx:key="_id"
+        style="border-left: 8rpx solid {{item.color}};"
+      >
+        <view class="acc-left">
+          <view class="acc-icon">{{item.icon}}</view>
+          <view class="acc-info">
+            <view class="acc-name">{{item.name}}</view>
+            <view class="acc-type">{{item.type === 'credit' ? '信用卡' : (item.type === 'debit' ? '储蓄卡' : (item.type === 'cash' ? '现金' : (item.type === 'alipay' ? '支付宝' : (item.type === 'wechat' ? '微信' : '其他'))))}}</view>
+          </view>
+        </view>
+        <view class="acc-right">
+          <text class="acc-balance {{item.balance < 0 ? 'negative' : ''}}">
+            ¥{{item.balance / 100}}
+          </text>
+        </view>
+      </view>
+    </view>
+
+    <view class="section-header mt-24">
+      <text class="section-title">理财</text>
+      <text class="section-more">收益率 {{profitRate}}%</text>
+    </view>
+
+    <view class="asset-list">
+      <view class="asset-item-row card-sm" wx:for="{{assets}}" wx:key="_id">
+        <view class="ast-left">
+          <view class="ast-icon" style="background: {{item.type === 'fund' ? '#3498DB' : (item.type === 'stock' ? '#E74C3C' : '#27AE60')}}15;">
+            {{item.type === 'fund' ? '📊' : (item.type === 'stock' ? '📈' : '🏦')}}
+          </view>
+          <view class="ast-info">
+            <view class="ast-name">{{item.name}}</view>
+            <view class="ast-type">
+              {{item.type === 'fund' ? '基金' : (item.type === 'stock' ? '股票' : (item.type === 'deposit' ? '存款' : '其他'))}}
+            </view>
+          </view>
+        </view>
+        <view class="ast-right">
+          <view class="ast-value">¥{{item.currentValue / 100}}</view>
+          <view class="ast-profit {{item.profit >= 0 ? 'positive' : 'negative'}}">
+            {{item.profit >= 0 ? '+' : ''}}{{item.profitRate}}%
+          </view>
+        </view>
+      </view>
+      <view wx:if="{{assets.length === 0}}" class="empty-mini">暂无理财记录</view>
+    </view>
+
+    <view class="section-header mt-24">
+      <text class="section-title">工具</text>
+    </view>
+
+    <view class="tools-grid">
+      <view class="tool-item card-sm" bindtap="goToBudgetSetting">
+        <view class="tool-icon">🎯</view>
+        <text class="tool-name">预算设置</text>
+      </view>
+      <view class="tool-item card-sm" bindtap="goToFamily">
+        <view class="tool-icon">👨‍👩‍👧</view>
+        <text class="tool-name">家庭成员</text>
+      </view>
+      <view class="tool-item card-sm" bindtap="exportData">
+        <view class="tool-icon">📤</view>
+        <text class="tool-name">数据导出</text>
+      </view>
+      <view class="tool-item card-sm" bindtap="goToProfile">
+        <view class="tool-icon">⚙️</view>
+        <text class="tool-name">设置</text>
+      </view>
+    </view>
+
+    <view class="section-header mt-24">
+      <text class="section-title">家庭成员</text>
+      <text class="section-more" bindtap="goToFamily">管理 ›</text>
+    </view>
+
+    <view class="members-row card-sm">
+      <view class="member-item" wx:for="{{familyMembers}}" wx:key="_id">
+        <view class="member-avatar" style="background: {{item.color}};">
+          {{item.nickname[0]}}
+        </view>
+        <text class="member-name">{{item.nickname}}</text>
+      </view>
+      <view class="member-item add" bindtap="goToFamily">
+        <view class="member-avatar add-avatar">+</view>
+        <text class="member-name">邀请</text>
+      </view>
+    </view>
+  </view>
+
+</view>

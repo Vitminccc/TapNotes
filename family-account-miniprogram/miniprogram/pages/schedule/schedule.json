@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "日程",
+  "navigationBarBackgroundColor": "#0F3460",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "calendar": "/components/calendar/calendar",
+  }
+}

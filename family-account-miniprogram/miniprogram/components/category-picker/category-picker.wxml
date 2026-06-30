@@ -1,0 +1,18 @@
+<view class="category-picker">
+  <scroll-view scroll-x class="cat-scroll">
+    <view class="cat-row">
+      <view 
+        class="cat-item {{value === item._id ? 'active' : ''}}"
+        wx:for="{{categories}}"
+        wx:key="_id"
+        data-cat="{{item}}"
+        bindtap="selectCategory"
+      >
+        <view class="cat-icon" style="background: {{item.bgColor || item.color + '20'}}; color: {{item.color}};">
+          {{item.icon}}
+        </view>
+        <text class="cat-name">{{item.name}}</text>
+      </view>
+    </view>
+  </scroll-view>
+</view>

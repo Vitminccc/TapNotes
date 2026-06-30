@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "支出",
+  "navigationBarBackgroundColor": "#0F3460",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "transaction-item": "/components/transaction-item/transaction-item",
+  }
+}
