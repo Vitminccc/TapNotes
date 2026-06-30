@@ -1,4 +1,5 @@
-const { showToast, showModal, uuid } = require('../../utils/util.js')
+const { callCloud } = require('../../utils/cloud.js')
+const { showToast, showModal } = require('../../utils/util.js')
 
 Page({
   data: {
@@ -11,13 +12,20 @@ Page({
     this.loadData()
   },
 
+  onShow() {
+    this.loadData()
+  },
+
   loadData() {
-    const app = getApp()
-    const mockData = app.getMockData()
-    this.setData({
-      family: mockData.currentFamily,
-      members: mockData.familyMembers || [],
-      inviteCode: 'FAM' + Math.random().toString(36).substring(2, 8).toUpperCase()
+    callCloud('getFamilyOverview').then(res => {
+      const data = res.data || {}
+      this.setData({
+        family: data.family,
+        members: data.members || [],
+        inviteCode: 'FAM' + Math.random().toString(36).substring(2, 8).toUpperCase()
+      })
+    }).catch(err => {
+      showToast(err.message || '加载失败', 'none')
     })
   },
 
@@ -38,12 +46,12 @@ Page({
     }
     showModal('确认移除', `确定要移除成员 ${member.nickname} 吗？`).then(confirm => {
       if (confirm) {
-        const app = getApp()
-        const mockData = app.getMockData()
-        mockData.familyMembers = (mockData.familyMembers || []).filter(m => m._id !== member._id)
-        app.saveMockData(mockData)
-        this.loadData()
-        showToast('已移除', 'success')
+        callCloud('removeFamilyMember', { memberId: member._id }).then(() => {
+          this.loadData()
+          showToast('已移除', 'success')
+        }).catch(err => {
+          showToast(err.message || '操作失败', 'none')
+        })
       }
     })
   },
@@ -56,14 +64,12 @@ Page({
       content: this.data.family ? this.data.family.name : '',
       success: (res) => {
         if (res.confirm && res.content) {
-          const app = getApp()
-          const mockData = app.getMockData()
-          if (mockData.currentFamily) {
-            mockData.currentFamily.name = res.content
-          }
-          app.saveMockData(mockData)
-          this.loadData()
-          showToast('已修改', 'success')
+          callCloud('updateFamily', { name: res.content }).then(() => {
+            this.loadData()
+            showToast('已修改', 'success')
+          }).catch(err => {
+            showToast(err.message || '修改失败', 'none')
+          })
         }
       }
     })

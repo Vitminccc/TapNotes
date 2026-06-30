@@ -1,6 +1,5 @@
 const { callCloud } = require('../../utils/cloud.js')
 const { formatMoney, getToday } = require('../../utils/format.js')
-const { uuid } = require('../../utils/util.js')
 
 Page({
   data: {
@@ -21,8 +20,8 @@ Page({
   onLoad(options) {
     const type = options.type || 'expense'
     const project = options.project || ''
-    this.setData({ 
-      type, 
+    this.setData({
+      type,
       date: getToday(),
       project
     })
@@ -31,21 +30,22 @@ Page({
   },
 
   loadCategories() {
-    const app = getApp()
-    const mockData = app.getMockData()
-    const cats = (mockData.categories || []).filter(c => c.type === this.data.type)
-    this.setData({
-      categories: cats,
-      selectedCategory: cats[0] || null
+    callCloud('getCategories', { type: this.data.type }).then(res => {
+      const cats = res.data || []
+      this.setData({
+        categories: cats,
+        selectedCategory: cats[0] || null
+      })
     })
   },
 
   loadAccounts() {
-    const app = getApp()
-    const mockData = app.getMockData()
-    this.setData({
-      accounts: mockData.accounts || [],
-      selectedAccount: (mockData.accounts || [])[0] || null
+    callCloud('getAccounts').then(res => {
+      const accounts = res.data || []
+      this.setData({
+        accounts,
+        selectedAccount: accounts[0] || null
+      })
     })
   },
 

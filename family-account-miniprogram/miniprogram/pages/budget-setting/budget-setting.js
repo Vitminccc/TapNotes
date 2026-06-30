@@ -18,10 +18,10 @@ Page({
   },
 
   loadCategories() {
-    const app = getApp()
-    const mockData = app.getMockData()
-    this.setData({
-      categories: (mockData.categories || []).filter(c => c.type === 'expense')
+    callCloud('getCategories', { type: 'expense' }).then(res => {
+      this.setData({
+        categories: res.data || []
+      })
     })
   },
 
@@ -51,7 +51,7 @@ Page({
       { categoryName: '家电', amount: '65000', amountFen: 6500000, iconText: '电', color: '#5E8BA0', bgColor: '#DDE8ED', sort: 4 },
       { categoryName: '其他', amount: '5000', amountFen: 500000, iconText: '其', color: '#7F7F7F', bgColor: '#E0E0E0', sort: 5 }
     ]
-    this.setData({ 
+    this.setData({
       items: defaultItems,
       budgetName: '装修总预算'
     })
@@ -65,7 +65,7 @@ Page({
   onTotalInput(e) {
     const val = e.detail.value
     const fen = Math.round(parseFloat(val || 0) * 100)
-    this.setData({ 
+    this.setData({
       totalAmount: val,
       totalAmountFen: fen
     })

@@ -1,4 +1,5 @@
-const { uuid, showToast } = require('../../utils/util.js')
+const { callCloud } = require('../../utils/cloud.js')
+const { showToast } = require('../../utils/util.js')
 
 Page({
   data: {
@@ -27,20 +28,20 @@ Page({
   },
 
   loadAccount(id) {
-    const app = getApp()
-    const mockData = app.getMockData()
-    const acc = (mockData.accounts || []).find(a => a._id === id)
-    if (acc) {
-      const typeIndex = this.data.typeValues.indexOf(acc.type)
-      this.setData({
-        name: acc.name,
-        type: acc.type,
-        typeIndex: typeIndex > -1 ? typeIndex : 0,
-        balance: (acc.balance / 100).toString(),
-        color: acc.color,
-        icon: acc.icon
-      })
-    }
+    callCloud('getAccounts').then(res => {
+      const acc = (res.data || []).find(a => a._id === id)
+      if (acc) {
+        const typeIndex = this.data.typeValues.indexOf(acc.type)
+        this.setData({
+          name: acc.name,
+          type: acc.type,
+          typeIndex: typeIndex > -1 ? typeIndex : 0,
+          balance: (acc.balance / 100).toString(),
+          color: acc.color,
+          icon: acc.icon
+        })
+      }
+    })
   },
 
   onNameInput(e) {
@@ -79,34 +80,25 @@ Page({
 
     const balanceFen = Math.round(parseFloat(balance || 0) * 100)
 
-    const app = getApp()
-    const mockData = app.getMockData()
-    const accounts = mockData.accounts || []
-
-    if (isEdit) {
-      const idx = accounts.findIndex(a => a._id === id)
-      if (idx > -1) {
-        accounts[idx] = { ...accounts[idx], name, type, balance: balanceFen, color, icon }
-      }
-    } else {
-      accounts.push({
-        _id: 'acc_' + uuid().slice(0, 8),
-        name,
-        type,
-        balance: balanceFen,
-        color,
-        icon,
-        sort: accounts.length + 1
-      })
-    }
-
-    mockData.accounts = accounts
-    app.saveMockData(mockData)
-
-    showToast('保存成功', 'success')
-    setTimeout(() => {
-      wx.navigateBack()
-    }, 500)
+    wx.showLoading({ title: '保存中...' })
+    callCloud('saveAccount', {
+      isEdit,
+      id,
+      name,
+      type,
+      balance: parseFloat(balance || 0),
+      color,
+      icon
+    }).then(() => {
+      wx.hideLoading()
+      showToast('保存成功', 'success')
+      setTimeout(() => {
+        wx.navigateBack()
+      }, 500)
+    }).catch(err => {
+      wx.hideLoading()
+      showToast(err.message || '保存失败', 'none')
+    })
   },
 
   deleteAccount() {
@@ -115,14 +107,14 @@ Page({
       content: '确定要删除这个账户吗？',
       success: (res) => {
         if (res.confirm) {
-          const app = getApp()
-          const mockData = app.getMockData()
-          mockData.accounts = (mockData.accounts || []).filter(a => a._id !== this.data.id)
-          app.saveMockData(mockData)
-          showToast('已删除', 'success')
-          setTimeout(() => {
-            wx.navigateBack()
-          }, 500)
+          callCloud('deleteAccount', { id: this.data.id }).then(() => {
+            showToast('已删除', 'success')
+            setTimeout(() => {
+              wx.navigateBack()
+            }, 500)
+          }).catch(err => {
+            showToast(err.message || '删除失败', 'none')
+          })
         }
       }
     })

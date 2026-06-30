@@ -1,3 +1,4 @@
+const { callCloud } = require('../../utils/cloud.js')
 const { showToast, showModal } = require('../../utils/util.js')
 
 Page({
@@ -14,9 +15,21 @@ Page({
   },
 
   onLoad() {
-    const app = getApp()
-    const mockData = app.getMockData()
-    this.setData({ userInfo: mockData.userInfo })
+    this.loadUserInfo()
+  },
+
+  onShow() {
+    this.loadUserInfo()
+  },
+
+  loadUserInfo() {
+    callCloud('getFamilyOverview').then(res => {
+      const data = res.data || {}
+      this.setData({ userInfo: data.userInfo })
+    }).catch(() => {
+      const app = getApp()
+      this.setData({ userInfo: app.globalData.userInfo })
+    })
   },
 
   onSettingTap(e) {
@@ -29,14 +42,13 @@ Page({
   },
 
   onClearData() {
-    showModal('确认清空', '确定要清空所有本地数据吗？此操作不可恢复。').then(confirm => {
+    showModal('确认清空', '确定要退出登录并清除本地数据吗？').then(confirm => {
       if (confirm) {
         const app = getApp()
-        wx.clearStorageSync()
-        app.initMockData()
-        showToast('已重置', 'success')
+        app.logout()
+        showToast('已退出', 'success')
         setTimeout(() => {
-          wx.switchTab({ url: '/pages/index/index' })
+          wx.reLaunch({ url: '/pages/index/index' })
         }, 1000)
       }
     })

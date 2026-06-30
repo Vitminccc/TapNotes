@@ -30,13 +30,13 @@ Page({
   loadSchedules() {
     const { year, month } = this.data
     const monthStr = `${year}-${String(month).padStart(2, '0')}`
-    
+
     callCloud('getScheduleList', { month: monthStr }).then(res => {
       const list = res.data || []
       const markDates = [...new Set(list.map(s => s.date))]
       const todaySchedules = list.filter(s => s.date === this.data.selectedDate)
         .sort((a, b) => (a.time || '').localeCompare(b.time || ''))
-      
+
       this.setData({
         schedules: list,
         markDates,
@@ -72,25 +72,19 @@ Page({
 
   toggleComplete(e) {
     const item = e.currentTarget.dataset.item
-    const list = this.data.schedules.map(s => {
-      if (s._id === item._id) {
-        return { ...s, isCompleted: !s.isCompleted }
-      }
-      return s
-    })
-    const todaySchedules = list.filter(s => s.date === this.data.selectedDate)
-      .sort((a, b) => (a.time || '').localeCompare(b.time || ''))
-    
-    const app = getApp()
-    const mockData = app.getMockData()
-    mockData.schedules = list
-    app.saveMockData(mockData)
-    
-    this.setData({ schedules: list, todaySchedules })
-    
-    wx.showToast({
-      title: item.isCompleted ? '已取消完成' : '已完成',
-      icon: 'success'
+    const newStatus = !item.isCompleted
+
+    callCloud('updateSchedule', {
+      id: item._id,
+      isCompleted: newStatus
+    }).then(() => {
+      this.loadSchedules()
+      wx.showToast({
+        title: newStatus ? '已完成' : '已取消完成',
+        icon: 'success'
+      })
+    }).catch(err => {
+      wx.showToast({ title: err.message || '操作失败', icon: 'none' })
     })
   },
 
@@ -117,12 +111,12 @@ Page({
       content: '确定要删除这条日程吗？',
       success: (res) => {
         if (res.confirm) {
-          const app = getApp()
-          const mockData = app.getMockData()
-          mockData.schedules = mockData.schedules.filter(s => s._id !== id)
-          app.saveMockData(mockData)
-          this.loadSchedules()
-          wx.showToast({ title: '已删除', icon: 'success' })
+          callCloud('deleteSchedule', { id }).then(() => {
+            this.loadSchedules()
+            wx.showToast({ title: '已删除', icon: 'success' })
+          }).catch(err => {
+            wx.showToast({ title: err.message || '删除失败', icon: 'none' })
+          })
         }
       }
     })

@@ -1,3 +1,4 @@
+const { callCloud } = require('../../utils/cloud.js')
 const { formatMoney } = require('../../utils/format.js')
 
 Page({
@@ -15,11 +16,11 @@ Page({
   },
 
   loadAccounts() {
-    const app = getApp()
-    const mockData = app.getMockData()
-    const accounts = (mockData.accounts || []).sort((a, b) => a.sort - b.sort)
-    const totalBalance = accounts.reduce((sum, acc) => sum + acc.balance, 0)
-    this.setData({ accounts, totalBalance })
+    callCloud('getAccounts').then(res => {
+      const accounts = (res.data || []).sort((a, b) => a.sort - b.sort)
+      const totalBalance = accounts.reduce((sum, acc) => sum + acc.balance, 0)
+      this.setData({ accounts, totalBalance })
+    })
   },
 
   goToAdd() {

@@ -66,11 +66,15 @@ Page({
   },
 
   loadUserInfo() {
-    const app = getApp()
-    const mockData = app.getMockData()
-    this.setData({
-      userInfo: mockData.userInfo,
-      familyMembers: mockData.familyMembers || []
+    callCloud('getFamilyOverview').then(res => {
+      const data = res.data || {}
+      this.setData({
+        userInfo: data.userInfo,
+        familyMembers: data.members || []
+      })
+    }).catch(() => {
+      const app = getApp()
+      this.setData({ userInfo: app.globalData.userInfo })
     })
   },
 

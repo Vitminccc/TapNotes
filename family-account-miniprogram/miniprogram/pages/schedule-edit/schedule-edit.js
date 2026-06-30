@@ -1,4 +1,5 @@
-const { uuid, showToast } = require('../../utils/util.js')
+const { callCloud } = require('../../utils/cloud.js')
+const { showToast } = require('../../utils/util.js')
 const { getToday } = require('../../utils/format.js')
 
 Page({
@@ -34,21 +35,21 @@ Page({
   },
 
   loadSchedule(id) {
-    const app = getApp()
-    const mockData = app.getMockData()
-    const sch = (mockData.schedules || []).find(s => s._id === id)
-    if (sch) {
-      const typeIndex = this.data.typeValues.indexOf(sch.type)
-      this.setData({
-        title: sch.title,
-        type: sch.type,
-        typeIndex: typeIndex > -1 ? typeIndex : 0,
-        date: sch.date,
-        time: sch.time || '09:00',
-        amount: sch.amount ? (sch.amount / 100).toString() : '',
-        remark: sch.remark || ''
-      })
-    }
+    callCloud('getScheduleList').then(res => {
+      const sch = (res.data || []).find(s => s._id === id)
+      if (sch) {
+        const typeIndex = this.data.typeValues.indexOf(sch.type)
+        this.setData({
+          title: sch.title,
+          type: sch.type,
+          typeIndex: typeIndex > -1 ? typeIndex : 0,
+          date: sch.date,
+          time: sch.time || '09:00',
+          amount: sch.amount ? (sch.amount / 100).toString() : '',
+          remark: sch.remark || ''
+        })
+      }
+    })
   },
 
   onTitleInput(e) {
@@ -94,40 +95,29 @@ Page({
       return
     }
 
-    const amountFen = amount ? Math.round(parseFloat(amount) * 100) : 0
-
-    const app = getApp()
-    const mockData = app.getMockData()
-    const schedules = mockData.schedules || []
-
     const color = typeColors[typeIndex]
 
-    if (isEdit) {
-      const idx = schedules.findIndex(s => s._id === id)
-      if (idx > -1) {
-        schedules[idx] = { ...schedules[idx], title, type, date, time, amount: amountFen, remark, color }
-      }
-    } else {
-      schedules.push({
-        _id: 'sch_' + uuid().slice(0, 8),
-        title,
-        type,
-        date,
-        time,
-        amount: amountFen,
-        remark,
-        color,
-        isCompleted: false
-      })
-    }
-
-    mockData.schedules = schedules
-    app.saveMockData(mockData)
-
-    showToast('保存成功', 'success')
-    setTimeout(() => {
-      wx.navigateBack()
-    }, 500)
+    wx.showLoading({ title: '保存中...' })
+    callCloud('saveSchedule', {
+      isEdit,
+      id,
+      title,
+      type,
+      date,
+      time,
+      amount: amount ? parseFloat(amount) : 0,
+      remark,
+      color
+    }).then(() => {
+      wx.hideLoading()
+      showToast('保存成功', 'success')
+      setTimeout(() => {
+        wx.navigateBack()
+      }, 500)
+    }).catch(err => {
+      wx.hideLoading()
+      showToast(err.message || '保存失败', 'none')
+    })
   },
 
   deleteSchedule() {
@@ -136,14 +126,14 @@ Page({
       content: '确定要删除这条日程吗？',
       success: (res) => {
         if (res.confirm) {
-          const app = getApp()
-          const mockData = app.getMockData()
-          mockData.schedules = (mockData.schedules || []).filter(s => s._id !== this.data.id)
-          app.saveMockData(mockData)
-          showToast('已删除', 'success')
-          setTimeout(() => {
-            wx.navigateBack()
-          }, 500)
+          callCloud('deleteSchedule', { id: this.data.id }).then(() => {
+            showToast('已删除', 'success')
+            setTimeout(() => {
+              wx.navigateBack()
+            }, 500)
+          }).catch(err => {
+            showToast(err.message || '删除失败', 'none')
+          })
         }
       }
     })

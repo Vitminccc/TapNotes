@@ -1,7 +1,14 @@
 const { callCloud } = require('./cloud.js')
 
 function login() {
-  return callCloud('login')
+  return callCloud('login').then(res => {
+    if (res.success !== false && res.data) {
+      const app = getApp()
+      app.setUserInfo(res.data)
+      return res.data
+    }
+    throw new Error(res.message || '登录失败')
+  })
 }
 
 function checkAuth() {
@@ -14,8 +21,14 @@ function getUserInfo() {
   return app.globalData.userInfo
 }
 
+function logout() {
+  const app = getApp()
+  app.logout()
+}
+
 module.exports = {
   login,
   checkAuth,
-  getUserInfo
+  getUserInfo,
+  logout
 }
