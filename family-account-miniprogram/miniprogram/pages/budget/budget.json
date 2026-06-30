@@ -6,6 +6,6 @@
   "usingComponents": {
     "budget-card": "/components/budget-card/budget-card",
     "budget-item": "/components/budget-item/budget-item",
-    "transaction-item": "/components/transaction-item/transaction-item",
+    "transaction-item": "/components/transaction-item/transaction-item"
   }
 }
