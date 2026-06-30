@@ -1,0 +1,165 @@
+.page {
+  min-height: 100vh;
+  background: #F8F4EE;
+  padding-bottom: 120rpx;
+}
+
+.schedule-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8rpx;
+  margin-bottom: 16rpx;
+}
+
+.date-display {
+  display: flex;
+  align-items: baseline;
+}
+
+.date-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1A1A1A;
+  margin-right: 16rpx;
+}
+
+.schedule-count {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.schedule-list {
+  padding: 0 8rpx;
+}
+
+.schedule-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+  transition: opacity 0.2s;
+}
+
+.schedule-item.completed {
+  opacity: 0.6;
+}
+
+.item-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.type-tag {
+  font-size: 22rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 20rpx;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+  font-weight: 500;
+}
+
+.item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-title {
+  font-size: 30rpx;
+  color: #1A1A1A;
+  font-weight: 500;
+  margin-bottom: 8rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item-meta {
+  display: flex;
+  align-items: center;
+}
+
+.item-time {
+  font-size: 24rpx;
+  color: #999;
+  margin-right: 16rpx;
+}
+
+.item-amount {
+  font-size: 24rpx;
+  color: #E74C3C;
+  font-weight: 500;
+}
+
+.item-right {
+  flex-shrink: 0;
+  margin-left: 20rpx;
+}
+
+.check-box {
+  width: 44rpx;
+  height: 44rpx;
+  border: 3rpx solid #ddd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  color: #fff;
+  transition: all 0.2s;
+}
+
+.check-box.checked {
+  background: #27AE60;
+  border-color: #27AE60;
+}
+
+.empty-card {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 80rpx 32rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.empty-text {
+  font-size: 30rpx;
+  color: #1A1A1A;
+  margin-bottom: 8rpx;
+}
+
+.empty-tip {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.fab-btn {
+  position: fixed;
+  right: 40rpx;
+  bottom: 160rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background: linear-gradient(135deg, #0F3460 0%, #1A4D8F 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(15, 52, 96, 0.4);
+  z-index: 100;
+}
+
+.fab-icon {
+  color: #fff;
+  font-size: 48rpx;
+  font-weight: 300;
+  line-height: 1;
+}

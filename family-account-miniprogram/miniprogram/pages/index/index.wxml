@@ -1,0 +1,88 @@
+<view class="page">
+  <view class="header">
+    <view class="month-row">
+      <text class="month-text">{{month}}</text>
+      <text class="arrow">›</text>
+    </view>
+    <view class="balance-card">
+      <view class="balance-label">本月结余</view>
+      <view class="balance-amount">¥{{monthBalance / 100}}</view>
+      <view class="stats-row">
+        <view class="stat">
+          <text class="stat-label">收入</text>
+          <text class="stat-value income">+¥{{monthIncome / 100}}</text>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat">
+          <text class="stat-label">支出</text>
+          <text class="stat-value expense">-¥{{monthExpense / 100}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="container">
+    <view class="quick-actions">
+      <view class="action-btn expense" data-type="expense" bindtap="goToAdd">
+        <view class="action-icon">💸</view>
+        <view class="action-text">记支出</view>
+      </view>
+      <view class="action-btn income" data-type="income" bindtap="goToAdd">
+        <view class="action-icon">💰</view>
+        <view class="action-text">记收入</view>
+      </view>
+      <view class="action-btn transfer" data-type="transfer" bindtap="goToAdd">
+        <view class="action-icon">🔄</view>
+        <view class="action-text">转账</view>
+      </view>
+    </view>
+
+    <view class="today-card">
+      <view class="today-header">
+        <text class="today-title">今日</text>
+        <text class="today-summary">支出 ¥{{todayExpense / 100}} · 收入 ¥{{todayIncome / 100}}</text>
+      </view>
+    </view>
+
+    <view class="section-title">
+      <text>最近记账</text>
+      <text class="more">查看全部 ›</text>
+    </view>
+
+    <view class="card">
+      <block wx:if="{{recentTransactions.length > 0}}">
+        <transaction-item
+          wx:for="{{recentTransactions}}"
+          wx:key="_id"
+          transaction="{{item}}"
+          showDate="{{true}}"
+          bind:tap="onTxTap"
+        />
+      </block>
+      <view wx:else class="empty">
+        <text>暂无记账记录</text>
+        <text class="empty-tip">点击下方按钮开始记账</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="fab-btn" bindtap="showAddOptions">
+    <text class="fab-icon">+</text>
+  </view>
+
+  <view wx:if="{{showAddPanel}}" class="add-panel-mask" bindtap="hideAddPanel">
+    <view class="add-panel" catchtap="">
+      <view class="panel-tabs">
+        <view class="panel-tab {{activeTab === 0 ? 'active' : ''}}" data-idx="0" bindtap="switchTab">支出</view>
+        <view class="panel-tab {{activeTab === 1 ? 'active' : ''}}" data-idx="1" bindtap="switchTab">收入</view>
+        <view class="panel-tab {{activeTab === 2 ? 'active' : ''}}" data-idx="2" bindtap="switchTab">转账</view>
+      </view>
+      <view class="panel-content">
+        <view class="big-amount">¥0.00</view>
+        <view class="category-hint">选择分类</view>
+        <view class="num-pad-dummy" style="height: 400rpx;"></view>
+      </view>
+    </view>
+  </view>
+
+</view>

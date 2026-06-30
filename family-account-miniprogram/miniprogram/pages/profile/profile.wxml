@@ -1,0 +1,48 @@
+<view class="page">
+  <view class="header">
+    <view class="profile-row" bindtap="onEditProfile">
+      <view class="avatar">
+        <text>{{userInfo.nickname ? userInfo.nickname[0] : '用'}}</text>
+      </view>
+      <view class="profile-info">
+        <view class="nickname">{{userInfo.nickname || '用户'}}</view>
+        <view class="profile-desc">点击编辑个人资料</view>
+      </view>
+      <text class="arrow">›</text>
+    </view>
+  </view>
+
+  <view class="container">
+    <view class="card">
+      <view 
+        class="setting-item" 
+        wx:for="{{settings}}" 
+        wx:key="name"
+        data-index="{{index}}"
+        bindtap="onSettingTap"
+      >
+        <view class="setting-icon">{{item.icon}}</view>
+        <view class="setting-info">
+          <view class="setting-name">{{item.name}}</view>
+          <view class="setting-desc">{{item.desc}}</view>
+        </view>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+
+    <view class="card mt-24">
+      <view class="setting-item danger" bindtap="onClearData">
+        <view class="setting-icon">🗑️</view>
+        <view class="setting-info">
+          <view class="setting-name">清空数据</view>
+          <view class="setting-desc">重置所有记账数据</view>
+        </view>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+
+    <view class="version">
+      <text>家庭记账 v1.0.0</text>
+    </view>
+  </view>
+</view>

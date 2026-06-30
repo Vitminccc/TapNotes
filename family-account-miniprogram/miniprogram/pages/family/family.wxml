@@ -1,0 +1,49 @@
+<view class="page">
+  <view class="container">
+    <view class="family-card" bindtap="onFamilyNameTap">
+      <view class="family-header">
+        <text class="family-label">家庭/账本</text>
+        <text class="edit-btn">编辑 ›</text>
+      </view>
+      <view class="family-name">{{family.name || '我的家庭'}}</view>
+      <view class="family-type">
+        {{family.type === 'daily' ? '日常账本' : (family.type === 'decoration' ? '装修账本' : (family.type === 'travel' ? '旅行账本' : '其他'))}}
+      </view>
+    </view>
+
+    <view class="section-title">
+      <text>成员管理</text>
+      <text class="count">{{members.length}} 人</text>
+    </view>
+
+    <view class="card">
+      <view 
+        class="member-item" 
+        wx:for="{{members}}" 
+        wx:key="_id"
+        data-member="{{item}}"
+      >
+        <view class="member-avatar" style="background: {{item.color}};">
+          {{item.nickname[0]}}
+        </view>
+        <view class="member-info">
+          <view class="member-name">{{item.nickname}}</view>
+          <view class="member-role">
+            {{item.role === 'owner' ? '创建者' : (item.role === 'admin' ? '管理员' : '成员')}}
+          </view>
+        </view>
+        <view class="member-action" catchtap="removeMember" data-member="{{item}}">
+          <text wx:if="{{item.role !== 'owner'}}" class="remove-btn">移除</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="section-title">邀请成员</view>
+    <view class="invite-card card-sm">
+      <view class="invite-label">邀请码</view>
+      <view class="invite-code">{{inviteCode}}</view>
+      <button class="copy-btn" bindtap="copyInviteCode">复制邀请码</button>
+      <view class="invite-tip">将邀请码分享给家人，对方加入后即可共享账本</view>
+    </view>
+  </view>
+</view>

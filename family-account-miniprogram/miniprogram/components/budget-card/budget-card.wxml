@@ -1,0 +1,19 @@
+<view class="budget-card" bindtap="onTap">
+  <view class="card-header">
+    <text class="budget-name">{{budget.name}}</text>
+  </view>
+  <view class="total-amount">{{totalAmountStr}}</view>
+  <view class="progress-bar">
+    <view class="progress-fill" style="width: {{percentVal}}%;"></view>
+  </view>
+  <view class="stats-row">
+    <view class="stat-item">
+      <text class="stat-label">已支出</text>
+      <text class="stat-value">{{spentStr}}</text>
+    </view>
+    <view class="stat-item right">
+      <text class="stat-label">剩余可用</text>
+      <text class="stat-value">{{remainingStr}}</text>
+    </view>
+  </view>
+</view>

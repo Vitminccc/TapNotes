@@ -1,0 +1,63 @@
+<view class="page">
+  <view class="container">
+    <view class="card">
+      <view class="form-item">
+        <text class="form-label">预算名称</text>
+        <input 
+          class="form-input" 
+          placeholder="请输入预算名称" 
+          value="{{budgetName}}"
+          bindinput="onNameInput"
+        />
+      </view>
+      <view class="form-item">
+        <text class="form-label">总预算</text>
+        <input 
+          class="form-input amount" 
+          type="digit"
+          placeholder="0.00" 
+          value="{{totalAmount}}"
+          bindinput="onTotalInput"
+        />
+        <text class="unit">元</text>
+      </view>
+    </view>
+
+    <view class="section-header">
+      <text class="section-title">分类预算</text>
+      <text class="add-btn" bindtap="addItem">+ 添加</text>
+    </view>
+
+    <view class="card">
+      <block wx:for="{{items}}" wx:key="sort" wx:for-index="idx">
+        <view class="budget-edit-item">
+          <view class="bei-left">
+            <view class="bei-icon" style="background: {{item.bgColor}}; color: {{item.color}};">
+              {{item.iconText}}
+            </view>
+            <view class="bei-name">{{item.categoryName}}</view>
+          </view>
+          <view class="bei-right">
+            <input 
+              class="bei-input" 
+              type="digit"
+              value="{{item.amount}}"
+              data-index="{{idx}}"
+              bindinput="onItemAmountInput"
+            />
+            <text class="bei-unit">元</text>
+            <view class="bei-del" data-index="{{idx}}" bindtap="removeItem">×</view>
+          </view>
+        </view>
+      </block>
+      <view class="total-row">
+        <text class="total-label">合计</text>
+        <text class="total-value">¥{{totalAmountFen / 100}}</text>
+      </view>
+    </view>
+
+    <view class="save-btn-wrapper">
+      <button class="save-btn" bindtap="save">保存预算</button>
+    </view>
+  </view>
+</view>

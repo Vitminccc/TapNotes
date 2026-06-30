@@ -1,0 +1,86 @@
+<view class="page">
+  <view class="header">
+    <view class="period-tabs">
+      <view 
+        class="period-tab {{periodIndex === index ? 'active' : ''}}" 
+        wx:for="{{periodList}}" 
+        wx:key="*this"
+        data-idx="{{index}}"
+        bindtap="switchPeriod"
+      >{{item}}</view>
+    </view>
+    <view class="total-section">
+      <text class="total-label">总支出</text>
+      <text class="total-amount">¥{{totalExpense / 100}}</text>
+    </view>
+  </view>
+
+  <view class="container">
+    <view class="card" bindtap="toggleChart">
+      <view class="card-header">
+        <text class="card-title">分类统计</text>
+        <text class="card-arrow">{{showPieChart ? '收起' : '展开'}}</text>
+      </view>
+      
+      <view wx:if="{{showPieChart}}" class="chart-section">
+        <view class="pie-chart">
+          <view class="pie-circle">
+            <view 
+              class="pie-slice" 
+              wx:for="{{categoryStats}}" 
+              wx:key="categoryId"
+              wx:if="{{index < 5}}"
+              style="--percent: {{item.percent}}; --color: {{item.color}}; --rot: {{index > 0 ? categoryStats.slice(0, index).reduce((s, c) => s + c.percent, 0) * 3.6 : 0}}deg;"
+            ></view>
+          </view>
+          <view class="pie-center">
+            <text class="pie-label">共{{categoryStats.length}}类</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="category-list">
+        <view 
+          class="category-item" 
+          wx:for="{{categoryStats}}" 
+          wx:key="categoryId"
+          data-item="{{item}}"
+          bindtap="onCategoryTap"
+        >
+          <view class="cat-left">
+            <view class="cat-dot" style="background: {{item.color}};"></view>
+            <text class="cat-name">{{item.categoryName}}</text>
+          </view>
+          <view class="cat-right">
+            <text class="cat-amount">{{item.amountStr}}</text>
+            <text class="cat-percent">{{item.percent}}%</text>
+          </view>
+        </view>
+        <view wx:if="{{categoryStats.length === 0}}" class="empty">暂无数据</view>
+      </view>
+    </view>
+
+    <view class="section-title">
+      <text>支出明细</text>
+      <text class="more">共{{transactions.length}}笔</text>
+    </view>
+
+    <view class="card">
+      <block wx:for="{{groupedTransactions}}" wx:key="date" wx:for-item="group">
+        <view class="date-header">
+          <text class="date-text">{{group.dateStr}}</text>
+          <text class="date-total">支出 {{group.dayTotalStr}}</text>
+        </view>
+        <transaction-item
+          wx:for="{{group.items}}"
+          wx:key="_id"
+          wx:for-item="tx"
+          transaction="{{tx}}"
+          bind:tap="onTxTap"
+        />
+      </block>
+      <view wx:if="{{transactions.length === 0}}" class="empty">暂无支出记录</view>
+    </view>
+  </view>
+
+</view>

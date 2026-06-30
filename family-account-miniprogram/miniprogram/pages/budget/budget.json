@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "预算",
+  "navigationBarBackgroundColor": "#0F3460",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "budget-card": "/components/budget-card/budget-card",
+    "budget-item": "/components/budget-item/budget-item",
+    "transaction-item": "/components/transaction-item/transaction-item",
+  }
+}

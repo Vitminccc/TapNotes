@@ -1,0 +1,22 @@
+<view class="calendar">
+  <view class="calendar-header">
+    <view class="nav-btn" bindtap="prevMonth">‹</view>
+    <view class="month-title">{{year}}年{{month}}月</view>
+    <view class="nav-btn" bindtap="nextMonth">›</view>
+  </view>
+  <view class="week-row">
+    <view class="week-day" wx:for="{{weekDays}}" wx:key="*this">{{item}}</view>
+  </view>
+  <view class="days-grid">
+    <view 
+      class="day-item {{item.empty ? 'empty' : ''}} {{item.isSelected ? 'selected' : ''}} {{item.isToday ? 'today' : ''}}"
+      wx:for="{{days}}" 
+      wx:key="index"
+      data-item="{{item}}"
+      bindtap="selectDay"
+    >
+      <text class="day-text">{{item.day}}</text>
+      <view wx:if="{{item.hasMark && !item.empty}}" class="mark-dot"></view>
+    </view>
+  </view>
+</view>

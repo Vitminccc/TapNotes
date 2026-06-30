@@ -1,0 +1,15 @@
+<view class="tx-item" bindtap="onTap">
+  <view class="tx-icon" style="background: {{color}}15; color: {{color}};">
+    {{icon}}
+  </view>
+  <view class="tx-info">
+    <view class="tx-name">{{category}}</view>
+    <view class="tx-desc">
+      <text wx:if="{{showDate}}">{{dateStr}} · </text>
+      {{transaction.remark || transaction.accountName || ''}}
+    </view>
+  </view>
+  <view class="tx-amount {{isExpense ? 'expense' : 'income'}}">
+    {{amountStr}}
+  </view>
+</view>

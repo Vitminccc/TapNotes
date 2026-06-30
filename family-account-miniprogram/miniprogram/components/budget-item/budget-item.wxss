@@ -1,0 +1,106 @@
+.budget-item {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.item-left {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.icon-box {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+  font-weight: 600;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1A1A1A;
+  margin-bottom: 8rpx;
+}
+
+.item-amount {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.item-amount .spent {
+  color: #1A1A1A;
+  font-weight: 500;
+}
+
+.item-amount .divider {
+  margin: 0 8rpx;
+  color: #ccc;
+}
+
+.item-amount .total {
+  color: #999;
+}
+
+.item-right {
+  position: absolute;
+  right: 24rpx;
+  top: 24rpx;
+}
+
+.budget-item {
+  position: relative;
+}
+
+.percent {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #0F3460;
+}
+
+.progress-bar {
+  height: 12rpx;
+  background: #F0F0F0;
+  border-radius: 6rpx;
+  overflow: hidden;
+  margin-bottom: 12rpx;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 6rpx;
+  transition: width 0.3s ease;
+}
+
+.progress-fill.over {
+  background: #E74C3C !important;
+}
+
+.bottom-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.remaining {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.remaining.over {
+  color: #E74C3C;
+  font-weight: 600;
+}

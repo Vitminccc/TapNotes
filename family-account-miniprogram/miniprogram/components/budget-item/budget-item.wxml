@@ -1,0 +1,29 @@
+<view class="budget-item" bindtap="onTap">
+  <view class="item-left">
+    <view class="icon-box" style="background: {{item.bgColor || '#E8EDF5'}}; color: {{item.color || '#0F3460'}};">
+      {{item.iconText || item.icon || '?'}}
+    </view>
+    <view class="item-info">
+      <view class="item-name">{{item.categoryName}}</view>
+      <view class="item-amount">
+        <text class="spent">{{spentStr}}</text>
+        <text class="divider">/</text>
+        <text class="total">{{amountStr}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="item-right">
+    <view class="percent">{{percentVal}}%</view>
+  </view>
+  <view class="progress-bar">
+    <view 
+      class="progress-fill {{isOver ? 'over' : ''}}" 
+      style="width: {{percentVal > 100 ? 100 : percentVal}}%; background: {{isOver ? '#E74C3C' : (item.color || '#0F3460')}};"
+    ></view>
+  </view>
+  <view class="bottom-row">
+    <view class="remaining {{isOver ? 'over' : ''}}">
+      {{isOver ? '已超预算' : '剩余' + remainingStr}}
+    </view>
+  </view>
+</view>

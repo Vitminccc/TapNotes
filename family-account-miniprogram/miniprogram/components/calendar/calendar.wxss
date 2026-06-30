@@ -1,0 +1,104 @@
+.calendar {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16rpx 24rpx;
+}
+
+.nav-btn {
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  color: #0F3460;
+  font-weight: 300;
+}
+
+.month-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1A1A1A;
+}
+
+.week-row {
+  display: flex;
+  padding: 0 8rpx 16rpx;
+}
+
+.week-day {
+  flex: 1;
+  text-align: center;
+  font-size: 24rpx;
+  color: #999;
+}
+
+.days-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.day-item {
+  width: 14.285%;
+  height: 72rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.day-item.empty {
+  visibility: hidden;
+}
+
+.day-text {
+  font-size: 28rpx;
+  color: #1A1A1A;
+}
+
+.day-item.today .day-text {
+  color: #0F3460;
+  font-weight: 600;
+}
+
+.day-item.selected {
+  position: relative;
+}
+
+.day-item.selected .day-text {
+  color: #fff;
+  font-weight: 600;
+  z-index: 2;
+}
+
+.day-item.selected::before {
+  content: '';
+  position: absolute;
+  width: 60rpx;
+  height: 60rpx;
+  background: #0F3460;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.mark-dot {
+  width: 10rpx;
+  height: 10rpx;
+  background: #E9B824;
+  border-radius: 50%;
+  margin-top: 4rpx;
+}
+
+.day-item.selected .mark-dot {
+  background: #fff;
+  margin-top: 2rpx;
+}
