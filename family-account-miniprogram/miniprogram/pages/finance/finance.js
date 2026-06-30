@@ -29,12 +29,16 @@ Page({
       const data = res.data || {}
       const accounts = (data.accounts || []).sort((a, b) => a.sort - b.sort)
       const assets = (data.assets || []).filter(a => a.status === 'holding')
-      
+      const totalAssets = data.totalAssets || 0
+      const totalProfit = data.totalProfit || 0
+
       this.setData({
-        totalAssets: data.totalAssets || 0,
+        totalAssets,
+        totalAssetsStr: '¥' + (totalAssets / 100).toFixed(2),
+        totalProfitStr: (totalProfit >= 0 ? '+' : '') + '¥' + (Math.abs(totalProfit) / 100).toFixed(2),
         totalBalance: data.totalBalance || 0,
         totalInvestValue: data.totalInvestValue || 0,
-        totalProfit: data.totalProfit || 0,
+        totalProfit,
         profitRate: data.profitRate || 0,
         accounts,
         assets

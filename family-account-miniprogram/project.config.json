@@ -43,8 +43,8 @@
     "useCompilerPlugins": false
   },
   "compileType": "miniprogram",
-  "libVersion": "2.19.4",
-  "appid": "touristappid",
+  "libVersion": "3.16.2",
+  "appid": "wx8e9b96451d9c360d",
   "projectname": "family-account-miniprogram",
   "cloudfunctionRoot": "cloudfunctions/",
   "condition": {},

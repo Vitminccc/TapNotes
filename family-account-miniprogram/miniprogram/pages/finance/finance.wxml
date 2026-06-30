@@ -17,7 +17,7 @@
         <text class="eye-icon">{{showAssetDetail ? '🙈' : '👁'}}</text>
       </view>
       <view class="asset-total">
-        {{showAssetDetail ? '****' : '¥' + (totalAssets / 100).toFixed(2)}}
+        {{showAssetDetail ? '****' : totalAssetsStr}}
       </view>
       <view class="asset-detail-row">
         <view class="asset-item">
@@ -31,7 +31,7 @@
         <view class="asset-item">
           <text class="asset-item-label">累计收益</text>
           <text class="asset-item-value profit {{totalProfit >= 0 ? 'positive' : 'negative'}}">
-            {{totalProfit >= 0 ? '+' : ''}}¥{{totalProfit / 100}}
+            {{totalProfitStr}}
           </text>
         </view>
       </view>

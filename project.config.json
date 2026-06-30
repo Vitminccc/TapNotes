@@ -1,0 +1,29 @@
+{
+  "setting": {
+    "es6": true,
+    "postcss": true,
+    "minified": true,
+    "uglifyFileName": false,
+    "enhance": true,
+    "packNpmRelationList": [],
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "useCompilerPlugins": false,
+    "minifyWXML": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "3.16.2",
+  "projectname": "TapNotes",
+  "miniprogramRoot": "family-account-miniprogram/miniprogram/",
+  "cloudfunctionRoot": "family-account-miniprogram/cloudfunctions/",
+  "simulatorPluginLibVersion": {},
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "appid": "wx8e9b96451d9c360d",
+  "editorSetting": {}
+}

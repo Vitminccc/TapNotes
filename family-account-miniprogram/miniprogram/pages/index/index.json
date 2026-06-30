@@ -4,6 +4,6 @@
   "navigationBarTextStyle": "white",
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "transaction-item": "/components/transaction-item/transaction-item",
+    "transaction-item": "/components/transaction-item/transaction-item"
   }
 }

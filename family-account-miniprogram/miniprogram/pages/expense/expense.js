@@ -71,11 +71,19 @@ Page({
     }).then(res => {
       const stats = res.data.categoryStats || []
       const total = res.data.total || 0
-      const statsWithPercent = stats.map(s => ({
-        ...s,
-        percent: total ? Math.round((s.amount / total) * 1000) / 10 : 0,
-        amountStr: formatMoney(s.amount)
-      }))
+      let cumPercent = 0
+      const statsWithPercent = stats.map(s => {
+        const p = total ? Math.round((s.amount / total) * 1000) / 10 : 0
+        // 饼图扇形旋转角 = 前面所有扇形 percent 之和 × 3.6 度
+        const rot = cumPercent * 3.6
+        cumPercent += p
+        return {
+          ...s,
+          percent: p,
+          rot,
+          amountStr: formatMoney(s.amount)
+        }
+      })
       this.setData({
         totalExpense: total,
         categoryStats: statsWithPercent

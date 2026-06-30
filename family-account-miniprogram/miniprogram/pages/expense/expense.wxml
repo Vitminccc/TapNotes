@@ -25,12 +25,12 @@
       <view wx:if="{{showPieChart}}" class="chart-section">
         <view class="pie-chart">
           <view class="pie-circle">
-            <view 
-              class="pie-slice" 
-              wx:for="{{categoryStats}}" 
+            <view
+              class="pie-slice"
+              wx:for="{{categoryStats}}"
               wx:key="categoryId"
               wx:if="{{index < 5}}"
-              style="--percent: {{item.percent}}; --color: {{item.color}}; --rot: {{index > 0 ? categoryStats.slice(0, index).reduce((s, c) => s + c.percent, 0) * 3.6 : 0}}deg;"
+              style="--percent: {{item.percent}}; --color: {{item.color}}; --rot: {{item.rot}}deg;"
             ></view>
           </view>
           <view class="pie-center">
