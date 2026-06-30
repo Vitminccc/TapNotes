@@ -47,6 +47,7 @@
   "appid": "touristappid",
   "projectname": "family-account-miniprogram",
   "cloudfunctionRoot": "cloudfunctions/",
+  "miniprogramRoot": "miniprogram/",
   "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",
