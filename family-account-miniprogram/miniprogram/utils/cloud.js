@@ -213,6 +213,56 @@ function mockCall(name, data) {
         }
       }
     }
+    case 'getAIAdvice': {
+      return {
+        success: true,
+        data: {
+          advice: {
+            consumption: {
+              summary: '本月装修类支出占比过高，建议控制杂项支出',
+              suggestions: [
+                '设计与施工支出占比46.6%，属装修期正常投入',
+                '日常餐饮交通支出合理，继续保持',
+                '建议对"其他"类支出做明细记录，便于后续分析'
+              ]
+            },
+            budget: {
+              summary: '装修总预算执行46.6%，整体可控',
+              suggestions: [
+                '设计与施工已用90.6%，接近预算上限，需关注后续付款',
+                '主材类仅用11.6%，可适当调低预算分配',
+                '建议预留10%应急资金应对超支风险'
+              ]
+            },
+            investment: {
+              summary: '投资组合整体盈利，股票持仓需关注',
+              suggestions: [
+                '沪深300基金收益4.6%表现良好，可继续持有',
+                '股票持仓亏损5%，建议设定止损线',
+                '定期存款占比偏高，可考虑适当增加权益类配置'
+              ]
+            },
+            bills: {
+              summary: '近期有2笔大额账单需关注',
+              suggestions: [
+                '7月5日信用卡还款3000元，提前准备资金',
+                '7月10日水电费200元，建议设置自动缴费',
+                '7月15日装修验收，需预留验收相关费用'
+              ]
+            }
+          },
+          financialData: {
+            period: '2026-06-01 ~ 2026-06-30',
+            summary: {
+              monthExpense: 7622800,
+              monthIncome: 1500000,
+              balance: -6122800,
+              transactionCount: 10
+            }
+          }
+        }
+      }
+    }
     default:
       return { success: true, data: null }
   }

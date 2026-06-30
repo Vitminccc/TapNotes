@@ -39,6 +39,13 @@
   </view>
 
   <view class="container">
+    <ai-advisor
+      mode="full"
+      advice="{{aiAdvice}}"
+      loading="{{aiLoading}}"
+      bind:refresh="onAIRefresh"
+    ></ai-advisor>
+
     <view class="section-header">
       <text class="section-title">账户</text>
       <text class="section-more" bindtap="goToAccountList">管理 ›</text>

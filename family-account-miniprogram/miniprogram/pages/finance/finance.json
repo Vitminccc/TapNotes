@@ -4,5 +4,6 @@
   "navigationBarTextStyle": "white",
   "enablePullDownRefresh": true,
   "usingComponents": {
+    "ai-advisor": "/components/ai-advisor/ai-advisor"
   }
 }

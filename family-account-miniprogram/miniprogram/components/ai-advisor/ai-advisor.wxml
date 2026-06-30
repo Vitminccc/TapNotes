@@ -1,0 +1,127 @@
+<view class="ai-advisor">
+
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="ai-loading">
+    <view class="ai-loading-icon">
+      <view class="ai-pulse"></view>
+      <text class="ai-emoji">🤖</text>
+    </view>
+    <text class="ai-loading-text">AI正在分析您的财务数据...</text>
+  </view>
+
+  <!-- 无数据状态 -->
+  <view wx:elif="{{!advice}}" class="ai-empty">
+    <text class="ai-empty-icon">🤖</text>
+    <text class="ai-empty-text">点击获取AI财务分析建议</text>
+    <view class="ai-empty-btn" bindtap="refresh">开始分析</view>
+  </view>
+
+  <!-- 摘要模式（首页用） -->
+  <view wx:elif="{{mode === 'summary'}}" class="ai-summary">
+    <view class="ai-summary-header" bindtap="goToFinance">
+      <view class="ai-summary-title">
+        <text class="ai-icon">🤖</text>
+        <text class="ai-title-text">AI财务洞察</text>
+      </view>
+      <text class="ai-arrow">查看详情 ›</text>
+    </view>
+    <view class="ai-summary-grid">
+      <view class="ai-summary-item">
+        <text class="ai-item-icon">📊</text>
+        <text class="ai-item-text">{{advice.consumption.summary}}</text>
+      </view>
+      <view class="ai-summary-item">
+        <text class="ai-item-icon">🎯</text>
+        <text class="ai-item-text">{{advice.budget.summary}}</text>
+      </view>
+      <view class="ai-summary-item">
+        <text class="ai-item-icon">📈</text>
+        <text class="ai-item-text">{{advice.investment.summary}}</text>
+      </view>
+      <view class="ai-summary-item">
+        <text class="ai-item-icon">📅</text>
+        <text class="ai-item-text">{{advice.bills.summary}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 完整模式（理财页用） -->
+  <view wx:elif="{{mode === 'full'}}" class="ai-full">
+    <view class="ai-full-header">
+      <view class="ai-full-title">
+        <text class="ai-icon-lg">🤖</text>
+        <view class="ai-title-block">
+          <text class="ai-title-main">AI财务顾问</text>
+          <text class="ai-title-sub">基于您的家庭财务数据智能分析</text>
+        </view>
+      </view>
+      <view class="ai-refresh-btn" bindtap="refresh">
+        <text class="ai-refresh-icon">↻</text>
+        <text class="ai-refresh-text">刷新</text>
+      </view>
+    </view>
+
+    <!-- 维度切换Tab -->
+    <view class="ai-tabs">
+      <view
+        wx:for="{{tabs}}"
+        wx:key="key"
+        class="ai-tab {{activeTab === index ? 'active' : ''}}"
+        data-idx="{{index}}"
+        bindtap="switchTab"
+      >
+        <text class="ai-tab-icon">{{item.icon}}</text>
+        <text class="ai-tab-label">{{item.label}}</text>
+      </view>
+    </view>
+
+    <!-- 消费分析 -->
+    <view wx:if="{{activeTab === 0 && advice.consumption}}" class="ai-content">
+      <view class="ai-content-summary">{{advice.consumption.summary}}</view>
+      <view class="ai-suggestion-list">
+        <view wx:for="{{advice.consumption.suggestions}}" wx:key="index" class="ai-suggestion-item">
+          <text class="ai-suggestion-dot">•</text>
+          <text class="ai-suggestion-text">{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 预算优化 -->
+    <view wx:if="{{activeTab === 1 && advice.budget}}" class="ai-content">
+      <view class="ai-content-summary">{{advice.budget.summary}}</view>
+      <view class="ai-suggestion-list">
+        <view wx:for="{{advice.budget.suggestions}}" wx:key="index" class="ai-suggestion-item">
+          <text class="ai-suggestion-dot">•</text>
+          <text class="ai-suggestion-text">{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 理财建议 -->
+    <view wx:if="{{activeTab === 2 && advice.investment}}" class="ai-content">
+      <view class="ai-content-summary">{{advice.investment.summary}}</view>
+      <view class="ai-suggestion-list">
+        <view wx:for="{{advice.investment.suggestions}}" wx:key="index" class="ai-suggestion-item">
+          <text class="ai-suggestion-dot">•</text>
+          <text class="ai-suggestion-text">{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 账单提醒 -->
+    <view wx:if="{{activeTab === 3 && advice.bills}}" class="ai-content">
+      <view class="ai-content-summary">{{advice.bills.summary}}</view>
+      <view class="ai-suggestion-list">
+        <view wx:for="{{advice.bills.suggestions}}" wx:key="index" class="ai-suggestion-item">
+          <text class="ai-suggestion-dot">•</text>
+          <text class="ai-suggestion-text">{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="ai-disclaimer">
+      <text>以上建议由AI生成，仅供参考，不构成投资建议</text>
+    </view>
+  </view>
+
+</view>

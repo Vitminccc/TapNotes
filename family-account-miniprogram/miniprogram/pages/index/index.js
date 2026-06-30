@@ -11,12 +11,15 @@ Page({
     todayExpense: 0,
     recentTransactions: [],
     showAddPanel: false,
-    activeTab: 0
+    activeTab: 0,
+    aiAdvice: null,
+    aiLoading: false
   },
 
   onLoad() {
     this.setData({ month: getCurrentMonth() })
     this.loadData()
+    this.loadAIAdvice()
   },
 
   onShow() {
@@ -27,6 +30,22 @@ Page({
     this.loadMonthStats()
     this.loadTodayStats()
     this.loadRecentTransactions()
+  },
+
+  loadAIAdvice() {
+    this.setData({ aiLoading: true })
+    callCloud('getAIAdvice', { type: 'summary' }).then(res => {
+      this.setData({
+        aiAdvice: res.data.advice,
+        aiLoading: false
+      })
+    }).catch(() => {
+      this.setData({ aiLoading: false })
+    })
+  },
+
+  onAIRefresh() {
+    this.loadAIAdvice()
   },
 
   loadMonthStats() {

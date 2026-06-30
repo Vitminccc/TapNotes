@@ -12,16 +12,35 @@ Page({
     assets: [],
     showAssetDetail: false,
     userInfo: null,
-    familyMembers: []
+    familyMembers: [],
+    aiAdvice: null,
+    aiLoading: false
   },
 
   onLoad() {
     this.loadAssetData()
     this.loadUserInfo()
+    this.loadAIAdvice()
   },
 
   onShow() {
     this.loadAssetData()
+  },
+
+  loadAIAdvice() {
+    this.setData({ aiLoading: true })
+    callCloud('getAIAdvice', { type: 'full' }).then(res => {
+      this.setData({
+        aiAdvice: res.data.advice,
+        aiLoading: false
+      })
+    }).catch(() => {
+      this.setData({ aiLoading: false })
+    })
+  },
+
+  onAIRefresh() {
+    this.loadAIAdvice()
   },
 
   loadAssetData() {

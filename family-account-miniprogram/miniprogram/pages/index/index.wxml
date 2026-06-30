@@ -22,6 +22,13 @@
   </view>
 
   <view class="container">
+    <ai-advisor
+      mode="summary"
+      advice="{{aiAdvice}}"
+      loading="{{aiLoading}}"
+      bind:refresh="onAIRefresh"
+    ></ai-advisor>
+
     <view class="quick-actions">
       <view class="action-btn expense" data-type="expense" bindtap="goToAdd">
         <view class="action-icon">💸</view>
