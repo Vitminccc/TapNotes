@@ -7,6 +7,14 @@
 const axios = require('axios')
 
 const PROVIDERS = {
+  zhipu: {
+    url: 'https://api.modelverse.cn/v1/chat/completions',
+    model: 'glm-5.2',
+    headerBuilder: (apiKey) => ({
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json'
+    })
+  },
   deepseek: {
     url: 'https://api.deepseek.com/v1/chat/completions',
     model: 'deepseek-chat',
@@ -22,29 +30,22 @@ const PROVIDERS = {
       'Authorization': `Bearer ${apiKey}`,
       'Content-Type': 'application/json'
     })
-  },
-  zhipu: {
-    url: 'https://open.bigmodel.cn/api/paas/v4/chat/completions',
-    model: 'glm-4-flash',
-    headerBuilder: (apiKey) => ({
-      'Authorization': `Bearer ${apiKey}`,
-      'Content-Type': 'application/json'
-    })
   }
 }
 
 /**
  * 调用 LLM 获取财务建议
+ * 默认使用智谱 GLM-5.2，也支持通过环境变量切换 DeepSeek、通义千问
  * @param {string} systemPrompt - 系统提示词
  * @param {string} userPrompt - 用户数据提示词
  * @returns {Promise<string>} LLM 返回的文本内容
  */
 async function callLLM(systemPrompt, userPrompt) {
-  const provider = process.env.LLM_PROVIDER || 'deepseek'
-  const apiKey = process.env.LLM_API_KEY || ''
+  const provider = process.env.LLM_PROVIDER || 'zhipu'
+  const apiKey = process.env.LLM_API_KEY || 'YDR7XTKxKJveXYId522083Db-d81E-4a95-a7d8-25F9D46c'
 
   if (!apiKey) {
-    throw new Error('未配置 LLM_API_KEY 环境变量')
+    throw new Error('未配置 LLM_API_KEY')
   }
 
   const config = PROVIDERS[provider]
